@@ -1,5 +1,5 @@
 # ROXANA-ontology  
-**R**eference **O**ntology for E**X**pert bound processes in Ma**NA**f**A**cturing
+**R**eference **O**ntology for E**X**pert bound processes in M**ANA**fcturing
 
 An ontology for representing expert-bound processes in manufacturing. 
 
