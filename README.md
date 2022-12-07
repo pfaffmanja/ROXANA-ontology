@@ -26,7 +26,7 @@ ROXANA imports the following Common Core Ontologies:
 For more information regarding these specific mid-level extensions of the BFO, please see their [Github Repository](https://github.com/CommonCoreOntology/CommonCoreOntologies). 
 
 ## Releases
-- ROXANA 1.0 Initial Version
+- ROXANA 1.0 Initial Version 12/2022
 
 ## Contributing and developing
 Hints and suggestions are always welcome. The ontology was part of a research and development project. It was tested and evaluated for the commissioning of special production machines.  
