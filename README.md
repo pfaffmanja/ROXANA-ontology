@@ -29,5 +29,5 @@ For more information regarding these specific mid-level extensions of the BFO, p
 - ROXANA 1.0 Initial Version 12/2022
 
 ## Contributing and developing
-Hints and suggestions are always welcome. The ontology was part of a research and development project. It was tested and evaluated for the commissioning of special production machines.  
+Hints and suggestions are always welcome. The ontology was part of a research and development project. It was tested and evaluated for the commissioning of special production machines for three different small and medium sized companies. 
 Everyone can initiate a discussion via a ticket. A wiki with hints on how to proceed will follow soon. 
