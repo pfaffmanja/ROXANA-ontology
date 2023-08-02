@@ -37,10 +37,10 @@ For more information regarding these specific mid-level extensions of the BFO, p
 ### IOF Ontology 
 ROXANA 2.0 adapts the structures of [IOF version 1](https://github.com/iofoundry/ontology/tree/master/core) as reference ontology. The concepts from ROXANA 1.0 remain. 
 
-## Releases
+## Releases 📧
 - ROXANA 1.0 Initial Version of 12/2022 👉 based on BFO and the above mentioned CCO
 - ROXANA 2.0 of 08/2023 👉 adapted to IOF
 
-## Contributing and developing
+## Contributing and developing 📝
 Hints and suggestions are always welcome. The ontology was part of a research and development project. It was tested and evaluated for the commissioning of special production machines for three different small and medium sized companies. 
 Everyone can initiate a discussion via a ticket. A wiki with hints on how to proceed will follow soon. 
