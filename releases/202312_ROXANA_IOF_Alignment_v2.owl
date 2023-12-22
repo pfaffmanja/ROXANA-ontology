@@ -1,0 +1,2045 @@
+@prefix : <http://linkedfactory.org/vocab/roxana#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix cco: <http://www.ontologyrepository.com/CommonCoreOntologies/> .
+@prefix obo: <http://purl.obolibrary.org/obo/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix iof-av: <https://spec.industrialontologies.org/ontology/core/meta/AnnotationVocabulary/> .
+@prefix iof-core: <https://spec.industrialontologies.org/ontology/core/Core/> .
+@base <http://linkedfactory.org/vocab/roxana> .
+
+<http://linkedfactory.org/vocab/roxana> rdf:type owl:Ontology ;
+                                         owl:versionIRI <http://linkedfactory.org/vocab/202312/roxana> ;
+                                         owl:imports <http://purl.obolibrary.org/obo/bfo/2020/bfo.owl> ,
+                                                     <https://spec.industrialontologies.org/ontology/202301/core/Core/> ,
+                                                     <https://spec.industrialontologies.org/ontology/202301/core/meta/AnnotationVocabulary/> ;
+                                         dc:creator "Pfaff-Kastner, Manja Mai-Ly" ,
+                                                    "Wenzel, Ken"@en ,
+                                                    "Wunderlich, Tim" ;
+                                         dc:identifier "http://linkedfactory.org/vocab/roxana" ;
+                                         dc:language "de" ,
+                                                     "en" ;
+                                         dc:title "Reference Ontology for Expert bound processes in Manufacturing (ROXANA)" ;
+                                         rdfs:comment "We developed the ROXANA ontology to represent expert-based processes in manufacturing. The focus is on modelling human activities, including the related concepts (e.g. material, product, tool, quality or activity description)."@en ;
+                                         owl:versionInfo "Version 2.0 mapped to the IOF (based on BFO)"@en .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/elements/1.1/creator
+dc:creator rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/identifier
+dc:identifier rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/language
+dc:language rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/title
+dc:title rdf:type owl:AnnotationProperty .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/definition_source
+cco:definition_source rdf:type owl:AnnotationProperty .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/is_curated_in_ontology
+cco:is_curated_in_ontology rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2002/07/owl#cardinality
+owl:cardinality rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2002/07/owl#maxQualifiedCardinality
+owl:maxQualifiedCardinality rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2002/07/owl#qualifiedCardinality
+owl:qualifiedCardinality rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#explanatoryNote
+skos:explanatoryNote rdf:type owl:AnnotationProperty .
+
+
+###  https://spec.industrialontologies.org/ontology/202301/core/meta/AnnotationVocabulary/naturalLanguageDefinition
+<https://spec.industrialontologies.org/ontology/202301/core/meta/AnnotationVocabulary/naturalLanguageDefinition> rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://linkedfactory.org/vocab/roxana#change_stasis
+:change_stasis rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf cco:is_cause_of ;
+               rdf:type owl:AsymmetricProperty ,
+                        owl:IrreflexiveProperty ;
+               rdfs:domain [ owl:intersectionOf ( obo:BFO_0000015
+                                                  [ rdf:type owl:Class ;
+                                                    owl:complementOf [ rdf:type owl:Class ;
+                                                                       owl:unionOf ( iof-core:BuyingBusinessProcess
+                                                                                     iof-core:ComputingProcess
+                                                                                     iof-core:ManufacturingProcess
+                                                                                   )
+                                                                     ]
+                                                  ]
+                                                ) ;
+                             rdf:type owl:Class
+                           ] ;
+               rdfs:range iof-core:MaterialState ;
+               rdfs:label "change stasis"@en ,
+                          "verändert Zustand"@de ;
+               skos:example "if the plug for the coolant tank on a machine is removed, this will result in the spindle being switched off due to the potential risk of overheating"@en ,
+                            "wird der Stecker für den Kühlmitteltank an einer Maschine entfernt, so hat dies das Abschalten der Spindel aufgrund potentieller Überhitzungsgefahr zu Folge"@de ;
+               iof-av:explanatoryNote "die Subklassen Spezifizierung bei BusinessProcess, ComputingProcess, und Manufacturing Process schließt die Partizipation eines Agenten ein, weshalb diese Klassen als Domäne gemäß der Definition ausgeschlossen werden"@de ,
+                                      "the subclass specification for BusinessProcess, ComputingProcess, and Manufacturing Process includes the participation of an agent, which is why these classes are excluded as domains according to the definition"@en ;
+               iof-av:naturalLanguageDefinition "a relation from a process to a state form, where the state phenomenon is not caused by the action of a person"@de ,
+                                                "a relation from a process to a state form, where the state phenomenon is not caused by the action of a person"@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#has_output_state_part
+:has_output_state_part rdf:type owl:ObjectProperty ;
+                       rdfs:subPropertyOf :has_state_part ;
+                       owl:inverseOf :output_state_is_part_of ;
+                       rdf:type owl:AsymmetricProperty ,
+                                owl:TransitiveProperty ,
+                                owl:IrreflexiveProperty ;
+                       rdfs:range iof-core:MaterialState ;
+                       rdfs:label "has output state part"@en ,
+                                  "hat Output Zustandsform"@de ;
+                       skos:example "das Verriegeln der Schutztüren kann zur Folge haben dass die Kontrollleuchten dieser Türen  blinken; sowohl das Blinken dieser Leuchten wie auch die verriegelte Schutztüren als materielle Zustandsformen sind Output des Verriegelungsprozesses"@de ,
+                                    "locking the safety doors can cause the indicator lights of these doors to flash; both the flashing of these lights and the locked safety doors as material sates are outputs of the locking process"@en ;
+                       iof-av:naturalLanguageDefinition "a relationship that results in the change of a material state"@en ,
+                                                        "eine Relationsbeziehung die die Änderung einer materiellen Zustandsform zum Ergebnis hat"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#has_plan_part
+:has_plan_part rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf iof-core:prescribedBy ;
+               owl:inverseOf :is_part_of_plan ;
+               rdf:type owl:AsymmetricProperty ,
+                        owl:IrreflexiveProperty ;
+               rdfs:range :SubPlan ;
+               rdfs:label "has plan part"@en ,
+                          "hat Subplan Bestandteil"@de ;
+               skos:example "die gesamt Inbetriebnahme einer Maschine (als Gesamtanleitung) unterteilt sich in Sub-Prozesse, wie der allgemeiner Vorarbeiten bevor die Inbetriebnahme des Steuerungssystems erfolgt, welches jedes für sich aus einer Abfolge von Arbeitsschritten besteht"@de ,
+                            "the overall commissioning of a machine (as an overall plan) is divided into sub-parts, such as the general preparatory work before the commissioning of the control system takes place, each of which consists of a sequence of work steps"@en ;
+               iof-av:naturalLanguageDefinition "a part-whole relation of information units, where the partial plan contains a description of several work activities and represents an intermediate milestone in the overall plan"@en ,
+                                                "eine Teil-Ganzes Relation von Informationseinheiten, bei der der Teilplan eine Beschreibung von mehreren  Arbeitstätigkeiten beinhaltet und im Gesamtplan ein Zwischenmeilenstein repräsentiert"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#has_state
+:has_state rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf obo:BFO_0000166 ;
+           owl:inverseOf :is_state_of ;
+           rdf:type owl:AsymmetricProperty ,
+                    owl:IrreflexiveProperty ;
+           rdfs:range iof-core:MaterialState ;
+           rdfs:label "has state"@en ,
+                      "hat Zustandsform"@de ;
+           skos:example "a security door can take on 3 states: 1) open, 2) closed but not locked, 3) closed and locked"@en ,
+                        "eine Sicherheitstür kann 3 Zustandsformen annehmen: 1) geöffnet, 2) verschlossen aber nicht verriegelt, 3) geschlossen und verriegelt"@de ;
+           iof-av:naturalLanguageDefinition "a relation from a material entity to its state form existing over a certain period"@en ,
+                                            "eine Relation von einer materiellen Entität zu seiner über eine gewisse Zeit bestehende Zustandsform"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#has_state_part
+:has_state_part rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf obo:BFO_0000117 ;
+                owl:inverseOf :state_is_part_of ;
+                rdf:type owl:AsymmetricProperty ,
+                         owl:TransitiveProperty ,
+                         owl:IrreflexiveProperty ;
+                rdfs:range iof-core:MaterialState ;
+                rdfs:label "beinhaltet Zustandsform"@de ,
+                           "has state part"@en ;
+                skos:example "das Starten der Maschine (Prozess) setzt voraus, dass die Sicherheitstüren geschlossen und verriegelt sind (Zustandsform)"@de ,
+                             "starting the machine (process) requires that the safety doors are closed and locked (material state)"@en ;
+                iof-av:naturalLanguageDefinition "a relationship to a material state in the sense that the state is a necessary prerequisite"@en ,
+                                                 "eine Relationsbeziehung zu einer materiellen Zustandsform in dem Sinne, dass der Zustand eine notwendige Voraussetzung darstellt"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#is_commented_by
+:is_commented_by rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf iof-core:describedBy ;
+                 rdfs:range :ActComment ;
+                 rdfs:label "is commented by"@en ,
+                            "ist kommentiert durch"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#is_part_of_plan
+:is_part_of_plan rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf iof-core:prescribes ;
+                 rdf:type owl:AsymmetricProperty ,
+                          owl:IrreflexiveProperty ;
+                 rdfs:domain :SubPlan ;
+                 rdfs:label "is part of plan"@en ,
+                            "ist Bestandteil im Plan"@de ;
+                 skos:example "a bundled description of several work steps with a superordinate goal, such as the commissioning of the control unit, can be part of an overall plan, such as the commissioning of the entire machine system"@en ,
+                              "eine gebündelte Beschreibung von mehreren Arbeitsschritten mit einem übergeordneten Ziel, wie die Inbetriebnahme der Steuerungseinheit, kann ein Teil eines Gesamtprozesses sein, wie die Inbetriebnahme der gesamten Maschinenanlage"@de ;
+                 iof-av:naturalLanguageDefinition "a part-whole relation of information units, where the partial plan contains a description of several work activities and represents an intermediate milestone in the overall plan"@en ,
+                                                  "eine Teil-Ganzes Relation von Informationseinheiten, bei der der Teilplan eine Beschreibung von mehreren  Arbeitstätigkeiten beinhaltet und im Gesamtplan ein Zwischenmeilenstein repräsentiert"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#is_state_of
+:is_state_of rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf obo:BFO_0000167 ;
+             rdf:type owl:AsymmetricProperty ,
+                      owl:IrreflexiveProperty ;
+             rdfs:domain iof-core:MaterialState ;
+             rdfs:label "Zustandsform von"@de ,
+                        "is state of"@en ;
+             skos:example "das Blinken und das Nicht-Leuchten einer Lampe kann nur existieren, wenn die Lampe als materielle Entität vorhanden ist"@de ,
+                          "the flashing and non-lighting of a lamp can only exist if the lamp exists as a material entity"@en ;
+             iof-av:naturalLanguageDefinition "die Beziehung von einer materiellen Zustandsform zu seiner materiellen Entität, deren Existenz notwendig ist, damit die Zustandsform existieren kann"@de ,
+                                              "the relationship of a material state to its material entity, whose existence is necessary for the state form to exist"@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#output_state_is_part_of
+:output_state_is_part_of rdf:type owl:ObjectProperty ;
+                         rdfs:subPropertyOf :state_is_part_of ;
+                         rdf:type owl:AsymmetricProperty ,
+                                  owl:TransitiveProperty ,
+                                  owl:IrreflexiveProperty ;
+                         rdfs:domain iof-core:MaterialState ;
+                         rdfs:label "Output Zustandsform resultiert aus"@de ,
+                                    "output state is part of"@en ;
+                         skos:example "a relation that indicates from which time-dependent entity a material state has emerged"@en ,
+                                      "eine Relation, die angibt, aus welcher zeitabhängigen Einheit eine materielle Zustandsform hervorgegangen ist"@de ;
+                         iof-av:naturalLanguageDefinition "a manual operating status (material state) on the machine is the result of a setting on the control panel"@en ,
+                                                          "ein manueller Betriebszustand (materielle Zustandsform) an der Maschine ist die Folge einer Einstellung am Bedienpanel"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#state_is_part_of
+:state_is_part_of rdf:type owl:ObjectProperty ;
+                  rdfs:subPropertyOf obo:BFO_0000132 ;
+                  rdf:type owl:AsymmetricProperty ,
+                           owl:TransitiveProperty ,
+                           owl:IrreflexiveProperty ;
+                  rdfs:domain iof-core:MaterialState ;
+                  rdfs:label "Zustandsform Teil von"@de ,
+                             "state is part of"@en ;
+                  skos:example "das Ausschalten der Motoren von Zusatzaggregaten wie dem Kühlmittelmotor oder der Hochdruckpumpe setzen voraus, dass die jeweiligen Motorschutzschalter zu dem Zeitpunkt angeschalten sind"@de ,
+                               "switching off the motors of additional units, such as the coolant motor or the high-pressure pump, requires that the respective motor protection switches are switched on at the time"@en ;
+                  iof-av:naturalLanguageDefinition "a relational relationship starting from a material form of state in the sense that the state is a necessary prerequisite"@en ,
+                                                   "eine Relationsbeziehung ausgehend von einer materiellen Zustandsform in dem Sinne, dass der Zustand eine notwendige Voraussetzung darstellt"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#uses_work_instruction
+:uses_work_instruction rdf:type owl:ObjectProperty ;
+                       rdfs:subPropertyOf iof-core:prescribedBy ;
+                       owl:inverseOf :work_instruction_in ;
+                       rdf:type owl:AsymmetricProperty ,
+                                owl:IrreflexiveProperty ;
+                       rdfs:range :ActPrescription ;
+                       rdfs:label "nutzt Handlungsanweisung"@de ,
+                                  "uses work instruction"@en ;
+                       skos:example "die Durchführung eines Prozesses orientiert sich an einer Vorschrift zur Arbeitsschrittausführung, zum Beispiel beim Umgang mit Gefahrenstoffen"@de ,
+                                    "the realisation of a process is based on a prescription for the execution of work steps, for example when handling hazardous substances"@en ;
+                       iof-av:naturalLanguageDefinition "a relationship from an executing, time-dependent entity to an information unit in the sense of a prescription"@en ,
+                                                        "eine Relationsbeziehung von einer ausführenden, zeitabhängigen Entität zu einer Informationseinheit im Sinne einer Vorschrift"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#work_instruction_in
+:work_instruction_in rdf:type owl:ObjectProperty ;
+                     rdfs:subPropertyOf iof-core:prescribes ;
+                     rdf:type owl:AsymmetricProperty ,
+                              owl:IrreflexiveProperty ;
+                     rdfs:domain :ActPrescription ;
+                     rdfs:label "Handlungsanweisung in"@de ,
+                                "work instruction in"@en ;
+                     skos:example "mehrere Informationsquellen können als Input zur Durchführung eines Prozesses dienen, zum Beispiel die Arbeitsschritt Anleitung, wie auch die Bedienungsanleitung eines Zukaufbauteils"@de ,
+                                  "several sources of information can serve as input for carrying out a process, for example, the work step instructions, as well as the operating instructions for a purchased component"@en ;
+                     iof-av:naturalLanguageDefinition "a relationship from an information unit in the sense of a prescription to an executing, time-dependent entity"@en ,
+                                                      "eine Relationsbeziehung von einer Informationseinheit im Sinne einer Vorschrift zu einer ausführenden, zeitabhängigen Entität"@de .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/is_cause_of
+cco:is_cause_of rdf:type owl:ObjectProperty ;
+                rdfs:domain obo:BFO_0000003 ;
+                rdfs:range obo:BFO_0000003 ;
+                cco:is_curated_in_ontology "http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology"^^xsd:anyURI ;
+                rdfs:label "is cause of"@en ;
+                iof-av:naturalLanguageDefinition "x is_cause_of y iff x and y are instances of occurrents, and y is a consequence of x."@en .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/is_measurement_unit_of
+cco:is_measurement_unit_of rdf:type owl:ObjectProperty ;
+                           rdfs:subPropertyOf iof-core:describes ;
+                           owl:inverseOf cco:uses_measurement_unit ;
+                           rdfs:domain cco:MeasurementUnit .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/uses_measurement_unit
+cco:uses_measurement_unit rdf:type owl:ObjectProperty ;
+                          rdfs:subPropertyOf iof-core:describedBy ;
+                          rdfs:range cco:MeasurementUnit .
+
+
+###  https://spec.industrialontologies.org/ontology/core/Core/describedBy
+iof-core:describedBy rdf:type owl:ObjectProperty .
+
+
+###  https://spec.industrialontologies.org/ontology/core/Core/describes
+iof-core:describes rdf:type owl:ObjectProperty .
+
+
+###  https://spec.industrialontologies.org/ontology/core/Core/prescribedBy
+iof-core:prescribedBy rdf:type owl:ObjectProperty .
+
+
+###  https://spec.industrialontologies.org/ontology/core/Core/prescribes
+iof-core:prescribes rdf:type owl:ObjectProperty .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://linkedfactory.org/vocab/roxana#has_project_number
+:has_project_number rdf:type owl:DatatypeProperty ,
+                             owl:FunctionalProperty ;
+                    rdfs:label "has project number"@en ,
+                               "hat Projektnummer"@de .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://linkedfactory.org/vocab/roxana#Accounting
+:Accounting rdf:type owl:Class ;
+            rdfs:subClassOf iof-core:ManufacturerRole .
+
+
+###  http://linkedfactory.org/vocab/roxana#ActComment
+:ActComment rdf:type owl:Class ;
+            rdfs:subClassOf iof-core:DescriptiveInformationContentEntity ;
+            rdfs:label "Act Comment"@en ,
+                       "Handlungskommentar"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#ActOfCommissioning
+:ActOfCommissioning rdf:type owl:Class ;
+                    rdfs:subClassOf iof-core:AssemblyProcess ;
+                    rdfs:label "Act of Commissioning"@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#ActOfCommissioningAccess
+:ActOfCommissioningAccess rdf:type owl:Class ;
+                          rdfs:subClassOf :ActOfCommissioning ;
+                          rdfs:label "Act of Commissioning Access"@en ;
+                          skos:example "the call of a program window on the HMI panel"@en ;
+                          iof-av:naturalLanguageDefinition "An Act of Commissioning in which access is gained to a portion of the Artifact."@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#ActOfCommissioningAttach
+:ActOfCommissioningAttach rdf:type owl:Class ;
+                          rdfs:subClassOf :ActOfCommissioning ;
+                          rdfs:label "Act of Commissioning Attach"@en ;
+                          skos:example "attach pressure gauge"@en ,
+                                       "attach tool in machine"@en ;
+                          iof-av:naturalLanguageDefinition "An Act of Commissioning an artifact in which components are mechanically connected by a physical action without seeking a primarily electronic connection."@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#ActOfCommissioningCheckError
+:ActOfCommissioningCheckError rdf:type owl:Class ;
+                              rdfs:subClassOf :ActOfCommissioning ;
+                              rdfs:label "Act of Commissioning Check Error"@en ;
+                              skos:example "An Act of Commissioning in which the occurrence of a machine-specific fault is tested."@en ,
+                                           "test for spindles not starting with safety doors open"@en ;
+                              skos:explanatoryNote "Commissioning often includes the testing of (safety-relevant) machine-specific faults. Before the customer receives the machine, the commissioning engineer artificially generates the error circumstances (if possible) and tests whether the error message is output correctly."@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#ActOfCommissioningClose
+:ActOfCommissioningClose rdf:type owl:Class ;
+                         rdfs:subClassOf :ActOfCommissioning ;
+                         rdfs:label "Act of Commissioning Close"@en ;
+                         skos:example "close the centrifuge lid"@en ,
+                                      "close the safety door"@en ;
+                         iof-av:naturalLanguageDefinition "An Act of Commissiong an Artifact in which an access-mediating component is closed."@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#ActOfCommissioningCompare
+:ActOfCommissioningCompare rdf:type owl:Class ;
+                           rdfs:subClassOf :ActOfCommissioning ;
+                           rdfs:label "Act of Commissioning Compare"@en ;
+                           skos:example "comparing the target value and the actual value"@en ,
+                                        "comparing the temperature display (e.g. on the evaluation device and on the screen)"@en ;
+                           iof-av:naturalLanguageDefinition "An Act of Commissioning an artifact in which a comparison is made in relation to machine values."@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#ActOfCommissioningConnect
+:ActOfCommissioningConnect rdf:type owl:Class ;
+                           rdfs:subClassOf :ActOfCommissioning ;
+                           rdfs:label "Act of Commissioning Connect"@en ;
+                           skos:example "connect a wire jumper"@en ,
+                                        "plug in a connector"@en ;
+                           iof-av:naturalLanguageDefinition "An Act of Commissioning an artifact in which the physical connection of a component to the existing assembly is made with the intent of an electrical connection."@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#ActOfCommissioningControl
+:ActOfCommissioningControl rdf:type owl:Class ;
+                           rdfs:subClassOf :ActOfCommissioning ;
+                           rdfs:label "Act of Commissioning Control"@en ;
+                           skos:example "the control of the direction of rotation of the motors"@en ,
+                                        "the functional control of an extraction system"@en ;
+                           iof-av:naturalLanguageDefinition "An Act of Commissioning in which the components are checked for function, correct assembly and adjustment."@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#ActOfCommissioningDisconnect
+:ActOfCommissioningDisconnect rdf:type owl:Class ;
+                              rdfs:subClassOf :ActOfCommissioning ;
+                              rdfs:label "Act of Commissioning Disconnect"@en ;
+                              skos:example "the disconnection of a switch"@en ;
+                              iof-av:naturalLanguageDefinition "An Act of Commissioning in which the physical separation of a component occurs."@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#ActOfCommissioningEnter
+:ActOfCommissioningEnter rdf:type owl:Class ;
+                         rdfs:subClassOf :ActOfCommissioning ;
+                         rdfs:label "Act of Commissioning Enter"@en ;
+                         skos:example "the acknowledgement of a fault"@en ,
+                                      "the selection of a machine station"@en ;
+                         iof-av:naturalLanguageDefinition "An Act of Commissioning in which a dashboard is used to make a temporary entry that does not serve a permanent machine setting."@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#ActOfCommissioningFill
+:ActOfCommissioningFill rdf:type owl:Class ;
+                        rdfs:subClassOf :ActOfCommissioning ;
+                        rdfs:label "Act of Commissioning Fill"@en ;
+                        skos:example "the filling of the central lubrication"@en ;
+                        iof-av:naturalLanguageDefinition "An Act of Commissioning in which material is filled."@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#ActOfCommissioningLock
+:ActOfCommissioningLock rdf:type owl:Class ;
+                        rdfs:subClassOf :ActOfCommissioning ;
+                        rdfs:label "Act of Commissioning Lock"@en ;
+                        skos:example "the blocking of the main cock"@en ,
+                                     "the locking of the safety door"@en ;
+                        iof-av:naturalLanguageDefinition "An Act of Commissioning in which a component is physically or systematically interlocked to prevent access or passage."@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#ActOfCommissioningMeasure
+:ActOfCommissioningMeasure rdf:type owl:Class ;
+                           rdfs:subClassOf :ActOfCommissioning ;
+                           rdfs:label "Act of Commissioning Measure"@en ;
+                           skos:example "press an enabling switch"@en ;
+                           iof-av:naturalLanguageDefinition "An Act of Commissioning an artifact in which a value is determined on the machine."@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#ActOfCommissioningMove
+:ActOfCommissioningMove rdf:type owl:Class ;
+                        rdfs:subClassOf :ActOfCommissioning ;
+                        rdfs:label "Act of Commissioning Moving"@en ;
+                        skos:example "rotate a machine table to the correct position"@en ;
+                        skos:explanatoryNote "This activity is different from activity \"Act of Commissiong Push\". Thus, Moving movement includes a different number of directions of motion. The activity of  \"Act of Commissiong Push\", on the other hand, has the intention of initiating an (electronically) coupled action through the push operation."@en ;
+                        iof-av:naturalLanguageDefinition "An Act of Commissioning an artifact where physical movement occurs in the sense of changing the position of components."@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#ActOfCommissioningOpen
+:ActOfCommissioningOpen rdf:type owl:Class ;
+                        rdfs:subClassOf :ActOfCommissioning ;
+                        rdfs:label "Act of Commissioning Open"@en ;
+                        skos:example "to open the safety doors"@en ;
+                        iof-av:naturalLanguageDefinition "An Act of Commissiong an Artifact by opening an access-giving component."@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#ActOfCommissioningPush
+:ActOfCommissioningPush rdf:type owl:Class ;
+                        rdfs:subClassOf :ActOfCommissioning ;
+                        rdfs:label "Act of Commissioning Push"@en ;
+                        skos:example "the mechanical operation of a contactor"@en ,
+                                     "the pressing of a button"@en ;
+                        iof-av:naturalLanguageDefinition "An Act of Commissioning an artifact in which a component can be actuated according to its electrical function."@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#ActOfCommissioningRemove
+:ActOfCommissioningRemove rdf:type owl:Class ;
+                          rdfs:subClassOf :ActOfCommissioning ;
+                          rdfs:label "Act of Commissioning Remove"@en ;
+                          skos:example "removal of a cover plate"@en ;
+                          iof-av:naturalLanguageDefinition "An Act of Commissioning an artifact in which a component is physically removed in order to perform a subsequent activity."@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#ActOfCommissioningSet
+:ActOfCommissioningSet rdf:type owl:Class ;
+                       rdfs:subClassOf :ActOfCommissioning ;
+                       rdfs:label "Act of Commissioning Set"@en ;
+                       skos:example "setting the runtime"@en ,
+                                    "setting the time on the control panel"@en ,
+                                    "the referencing of a measuring system"@en ;
+                       iof-av:naturalLanguageDefinition "An Act of Commissioning an artifact in which parameters and basic values are set via a dashboard on the machine."@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#ActOfCommissioningStart
+:ActOfCommissioningStart rdf:type owl:Class ;
+                         rdfs:subClassOf :ActOfCommissioning ;
+                         rdfs:label "Act of Commissioning Start"@en ;
+                         skos:example "starting the broaching unit"@en ,
+                                      "starting the spindles"@en ;
+                         iof-av:naturalLanguageDefinition "An Act of Commissioning an artifact in which selection via a dashboard (usually) initiates an operation of functional units."@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#ActOfCommissioningTurnOFF
+:ActOfCommissioningTurnOFF rdf:type owl:Class ;
+                           rdfs:subClassOf :ActOfCommissioning ;
+                           rdfs:label "Act of Commissioning Turn OFF"@en ;
+                           skos:example "turn off machine light"@en ,
+                                        "turn off the motor protection switch"@en ;
+                           iof-av:naturalLanguageDefinition "An Act of Commissioning an artifact in which an electrical functional component is used to initiate shutdown of assembly parts."@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#ActOfCommissioningTurnON
+:ActOfCommissioningTurnON rdf:type owl:Class ;
+                          rdfs:subClassOf :ActOfCommissioning ;
+                          rdfs:label "Act of Commissioning Turn ON"@en ;
+                          skos:example "switching on the control voltage"@en ,
+                                       "switching on the electronics supply"@en ;
+                          iof-av:naturalLanguageDefinition "An Act of Commissioning an artifact in which an electrical functional component is used to initiate activation of assembly parts."@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#ActOfCommissioningUnlock
+:ActOfCommissioningUnlock rdf:type owl:Class ;
+                          rdfs:subClassOf :ActOfCommissioning ;
+                          rdfs:label "Act of Commissioning Unlock"@en ;
+                          skos:example "unlocking the control panel"@en ,
+                                       "unlocking the safety door"@en ;
+                          iof-av:naturalLanguageDefinition "An Act of Commissioning an artifact in which a previously physically or system-locked component is placed in an open state."@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#ActOfCommissioningUpload
+:ActOfCommissioningUpload rdf:type owl:Class ;
+                          rdfs:subClassOf :ActOfCommissioning ;
+                          rdfs:label "Act of Commissioning Upload"@en ;
+                          skos:example "project upload to the control system"@en ;
+                          iof-av:naturalLanguageDefinition "An Act of Commissioning an artifact in which project files or values are digitally uploaded to a system."@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#ActOfCommissioningWait
+:ActOfCommissioningWait rdf:type owl:Class ;
+                        rdfs:subClassOf :ActOfCommissioning ;
+                        rdfs:label "Act of Commissioning Wait"@en ;
+                        skos:example "waiting expiry of overrun time on the machine"@en ,
+                                     "waiting for the blocking time on the machine"@en ;
+                        iof-av:naturalLanguageDefinition "An Act of Commissioning an artifact in which a period of time is overcome as a result of a time-bound operation."@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#ActPrescription
+:ActPrescription rdf:type owl:Class ;
+                 rdfs:subClassOf iof-core:DirectiveInformationContentEntity ;
+                 rdfs:label "Act Prescription"@en ,
+                            "Handlungsanweisung"@de ;
+                 skos:example "press the button for 5 sec"@en ,
+                              "turn the switch by 45 degress"@en ;
+                 iof-av:explanatoryNote "An action instruction includes the prescription for a single step. If several steps are considered, it is usually an instruction (e.g. operating manual). The action prescription of a step is part of a sequence of steps. These aim at an overall goal, e.g. the initial commissioning of a machine."@en ,
+                                        "The aggregation of multiple action prescriptions forms a plan."@en ;
+                 iof-av:naturalLanguageDefinition "A Directive Information Content Entity that prescribes how an action or step must be performed according to plan."@en .
+
+[ rdf:type owl:Axiom ;
+   owl:annotatedSource :ActPrescription ;
+   owl:annotatedProperty iof-av:explanatoryNote ;
+   owl:annotatedTarget "The aggregation of multiple action prescriptions forms a plan."@en ;
+   rdfs:seeAlso cco:PlanSpecification
+ ] .
+
+
+###  http://linkedfactory.org/vocab/roxana#Angle
+:Angle rdf:type owl:Class ;
+       rdfs:subClassOf iof-core:ValueExpression ;
+       rdfs:label "Angle"@en ,
+                  "Winkel"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#AutomaticCircuitBreaker
+:AutomaticCircuitBreaker rdf:type owl:Class ;
+                         rdfs:subClassOf cco:ElectronicComponent ;
+                         rdfs:label "Automatic Circuit Braker"@en ,
+                                    "Sicherungsautomat"@de ;
+                         iof-av:synonym "Leitungsschutzschalter"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#BlockingTapSwitch
+:BlockingTapSwitch rdf:type owl:Class ;
+                   rdfs:subClassOf :Switch ;
+                   rdfs:label "Blocking Tap Switch"@en ,
+                              "Sperrlink Schalter"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#Brake
+:Brake rdf:type owl:Class ;
+       rdfs:subClassOf iof-core:PieceOfEquipment ;
+       rdfs:label "Brake"@en ,
+                  "Bremse"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#BroachingUnit
+:BroachingUnit rdf:type owl:Class ;
+               rdfs:subClassOf cco:MachineElement ;
+               rdfs:label "Broaching Unit"@en ,
+                          "Räumeinheit"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#Button
+:Button rdf:type owl:Class ;
+        rdfs:subClassOf cco:ElectronicComponent ;
+        rdfs:label "Button"@en ,
+                   "Taste"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#Cable
+:Cable rdf:type owl:Class ;
+       rdfs:subClassOf cco:ElectronicComponent ;
+       cco:definition_source "https://en.wikipedia.org/wiki/Electrical_cable"@en ;
+       rdfs:label "Cable"@en ,
+                  "Kabel"@de ;
+       iof-av:naturalLanguageDefinition "A cable is an electronic component that assembles one or more wires running side by side or bundled, which is used to carry electric current."@en ,
+                                        "Ein Kabel ist eine elektronische Komponente, die aus einem oder mehreren nebeneinander verlaufenden oder gebündelten Drähten besteht, die zur Übertragung von elektrischem Strom dienen."@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#CentralContainer
+:CentralContainer rdf:type owl:Class ;
+                  rdfs:subClassOf :FluidContainer ;
+                  rdfs:label "Central Tank"@en ,
+                             "Zentralbehälter"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#CentralLubricationPump
+:CentralLubricationPump rdf:type owl:Class ;
+                        rdfs:subClassOf cco:Pump ;
+                        rdfs:label "Central Lubrication Pump"@de ,
+                                   "Reinigungszentrifuge Pumpe"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#CentralLubricationSystem
+:CentralLubricationSystem rdf:type owl:Class ;
+                          rdfs:subClassOf cco:LubricationSystem ;
+                          rdfs:label "Central Lubrication System"@en ,
+                                     "Zentralschmieranlage"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#ChipConveyor
+:ChipConveyor rdf:type owl:Class ;
+              rdfs:subClassOf :Pipeline ;
+              rdfs:label "Chip Conveyor"@en ,
+                         "Späneförderer"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#ChipConveyorCoolantExtractionErrorKey
+:ChipConveyorCoolantExtractionErrorKey rdf:type owl:Class ;
+                                       rdfs:subClassOf :ErrorKey ;
+                                       rdfs:label "Späneförderer/Kühlmittel/Absaugung Fehler Key"@de ,
+                                                  "chip conveyor coolant extraction error key"@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#Clamp
+:Clamp rdf:type owl:Class ;
+       rdfs:subClassOf cco:ElectronicComponent ;
+       cco:definition_source "https://de.wikipedia.org/wiki/Klemme_(Elektrotechnik)"@de ;
+       rdfs:label "Clamp"@en ,
+                  "Klemme"@de ;
+       iof-av:naturalLanguageDefinition "A clamp is an electronic component used in electrical engineering for the detachable connection or joining of wires, cores and conductors."@en ,
+                                        "Eine Klemme ist eine elektronische Komponente, die in der Elektrotechnik zum lösbaren Anschluss oder der Verbindung von Drähten, Adern und Leitungen dient."@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#CleaningCentrifuge
+:CleaningCentrifuge rdf:type owl:Class ;
+                    rdfs:subClassOf iof-core:PieceOfEquipment ;
+                    rdfs:label "Cleaning Centrifuge"@en ,
+                               "Reinigungszentrifuge"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#CleaningCentrifugeMainSwitch
+:CleaningCentrifugeMainSwitch rdf:type owl:Class ;
+                              rdfs:subClassOf :MainSwitch ;
+                              rdfs:label "Cleaning Centrifuge Main Switch"@en ,
+                                         "Reinigungszentrifuge Hauptschalter"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#CollectionContainer
+:CollectionContainer rdf:type owl:Class ;
+                     rdfs:subClassOf :FluidContainer ;
+                     rdfs:label "Auffangbehälter"@de ,
+                                "Collection Container"@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#CommissioningEngineer
+:CommissioningEngineer rdf:type owl:Class ;
+                       rdfs:subClassOf iof-core:ManufacturerRole .
+
+
+###  http://linkedfactory.org/vocab/roxana#ComputerScientist
+:ComputerScientist rdf:type owl:Class ;
+                   rdfs:subClassOf iof-core:ManufacturerRole .
+
+
+###  http://linkedfactory.org/vocab/roxana#Contactor
+:Contactor rdf:type owl:Class ;
+           rdfs:subClassOf cco:ElectronicComponent ;
+           cco:definition_source "https://www.collinsdictionary.com/de/worterbuch/englisch/contactor"@en ;
+           rdfs:label "Contactor"@en ,
+                      "Schütz"@de ;
+           iof-av:naturalLanguageDefinition "An artifact that is an electro-mechanical device that is operated by an electric coil and allows the automatic or remote operation to start or stop an electrical power circuit"@en ,
+                                            "Ein Schütz ist eine elektronische Komponente, die durch eine elektrische Spule betätigt wird und das automatische oder ferngesteuerte Ein- und Ausschalten eines Stromkreises ermöglicht."@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#Control
+:Control rdf:type owl:Class ;
+         rdfs:subClassOf :ObjectAggregateFunction ;
+         rdfs:label "Control"@en ,
+                    "Kontrolle"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#ControlPanel
+:ControlPanel rdf:type owl:Class ;
+              rdfs:subClassOf cco:InstrumentDisplayPanel2 ;
+              cco:definition_source "https://de.wikipedia.org/wiki/Control_Panel"@de ;
+              rdfs:label "Bedienpanel"@de ,
+                         "Control Panel"@en ;
+              iof-av:naturalLanguageDefinition "A control panel is a panel called a visualization device. It can consist of a display only or with function keys. A control panel is used to operate a machine or automate a building."@en ,
+                                               "Ein Control Panel ist ein Panel, das als Visualisierungsgerät bezeichnet wird. Es kann nur aus einem Display bestehen oder mit Funktionstasten. Ein Control Panel wird zur Bedienung einer Maschine oder bei der Automatisierung eines Gebäudes eingesetzt."@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#ControlSystemComponent
+:ControlSystemComponent rdf:type owl:Class ;
+                        rdfs:subClassOf iof-core:PieceOfEquipment ;
+                        rdfs:label "Control System Component"@en ,
+                                   "Steuerungssystem"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#ControlUnit
+:ControlUnit rdf:type owl:Class ;
+             rdfs:subClassOf :ControlSystemComponent ;
+             rdfs:label "Control Unit"@en ,
+                        "Steuereinheit"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#Controller
+:Controller rdf:type owl:Class ;
+            rdfs:subClassOf cco:ElectronicComponent ;
+            rdfs:label "Controller"@en ,
+                       "Regler"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#CoolantInletValve
+:CoolantInletValve rdf:type owl:Class ;
+                   rdfs:subClassOf cco:Valve ;
+                   rdfs:label "Coolant Inlet Valve"@en ,
+                              "Kühlmittelzulaufventil"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#CoolantPump
+:CoolantPump rdf:type owl:Class ;
+             rdfs:subClassOf cco:Pump ;
+             rdfs:label "Coolant Pump"@en ,
+                        "Kühlmittel Pumpe"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#CoolantValve
+:CoolantValve rdf:type owl:Class ;
+              rdfs:subClassOf cco:Valve ;
+              rdfs:label "Coolant Valve"@en ,
+                         "Kühlmittelventil"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#CountingFunction
+:CountingFunction rdf:type owl:Class ;
+                  rdfs:subClassOf cco:ObservationArtifactFunction ;
+                  rdfs:label "Counting Function"@en ;
+                  skos:example "number of rotations of a control shaft"@en ;
+                  iof-av:naturalLanguageDefinition "An Observation Artifact Function that is realized during events in which an Artifact is used to collect information about the number of specified movements of a specified object or class of objects."@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#Current
+:Current rdf:type owl:Class ;
+         rdfs:subClassOf iof-core:ValueExpression ;
+         rdfs:label "Current"@en ,
+                    "Strom"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#CurrentValueMoment
+:CurrentValueMoment rdf:type owl:Class ;
+                    rdfs:subClassOf cco:Power ;
+                    rdfs:label "Current Value at Moment"@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#CurrentValueMoment0
+:CurrentValueMoment0 rdf:type owl:Class ;
+                     rdfs:subClassOf :CurrentValueMoment ;
+                     rdfs:label "Current Value 0 VDC"@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#CurrentValueMoment24
+:CurrentValueMoment24 rdf:type owl:Class ;
+                      rdfs:subClassOf :CurrentValueMoment ;
+                      rdfs:label "Current Value 24 VDC"@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#Detector
+:Detector rdf:type owl:Class ;
+          rdfs:subClassOf cco:ElectronicComponent ;
+          rdfs:label "Detector"@en ,
+                     "Melder"@de ;
+          iof-av:naturalLanguageDefinition "A detector is an electronic component which detects or indicates substances or processes that are not immediately accessible or perceptible."@en ,
+                                           "Ein Melder/Detektor ist eine elektronische Komponente, die zum Nachweis oder als Anzeige nicht unmittelbar zugänglicher bzw. wahrnehmbarer Stoffe oder Vorgänge dient."@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#DiagnosticCPUErrorKey
+:DiagnosticCPUErrorKey rdf:type owl:Class ;
+                       rdfs:subClassOf :ErrorKey ;
+                       rdfs:label "Diagnose CPU Fehler Key"@de ,
+                                  "diagnostic CPU error key"@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#DiagnosticsIOLinkErrorKey
+:DiagnosticsIOLinkErrorKey rdf:type owl:Class ;
+                           rdfs:subClassOf :ErrorKey ;
+                           rdfs:label "Diagnose I/O Link Fehler Key"@de ,
+                                      "diagnostic IO link error key"@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#DisconnectTerminal
+:DisconnectTerminal rdf:type owl:Class ;
+                    rdfs:subClassOf :Clamp ;
+                    rdfs:label "Disconnect Clamp"@en ,
+                               "Trennklemme"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#DrillBreakValve
+:DrillBreakValve rdf:type owl:Class ;
+                 rdfs:subClassOf cco:Valve ;
+                 rdfs:label "Bohrerbruchventil"@de ,
+                            "Drill Break Valve"@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#DrillingMachine
+:DrillingMachine rdf:type owl:Class ;
+                 rdfs:subClassOf :MachineTool ;
+                 rdfs:label "Bohrmaschine"@de ,
+                            "Drilling Machine"@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#DriveUnit
+:DriveUnit rdf:type owl:Class ;
+           rdfs:subClassOf iof-core:PieceOfEquipment ;
+           rdfs:label "Antriebseinheit"@de ,
+                      "Drive Unit"@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#ElectricalAssembler
+:ElectricalAssembler rdf:type owl:Class ;
+                     rdfs:subClassOf iof-core:ManufacturerRole .
+
+
+###  http://linkedfactory.org/vocab/roxana#ElectricalEngineer
+:ElectricalEngineer rdf:type owl:Class ;
+                    rdfs:subClassOf iof-core:ManufacturerRole .
+
+
+###  http://linkedfactory.org/vocab/roxana#EmergencyButton
+:EmergencyButton rdf:type owl:Class ;
+                 rdfs:subClassOf :Button ;
+                 rdfs:label "Emergency Button"@en ,
+                            "Notfalltaste"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#ErrorKey
+:ErrorKey rdf:type owl:Class ;
+          rdfs:subClassOf iof-core:Identifier ;
+          rdfs:label "Fehlernummerm Kennung"@de ,
+                     "error number identifier"@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#EvaluationDevice
+:EvaluationDevice rdf:type owl:Class ;
+                  rdfs:subClassOf :MeasurementSystem ;
+                  rdfs:label "Auswerteeinheit"@de ,
+                             "Evaluation Device"@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#ExhaustionSystem
+:ExhaustionSystem rdf:type owl:Class ;
+                  rdfs:subClassOf cco:FluidControlArtifact ;
+                  rdfs:label "Absaugpumpe"@de ,
+                             "Exhaustion System"@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#FilterFleece
+:FilterFleece rdf:type owl:Class ;
+              rdfs:subClassOf cco:FluidControlArtifactComponent ;
+              rdfs:label "Filter Fleece"@en ,
+                         "Filtervlies"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#FireExtinguisherErrorKey
+:FireExtinguisherErrorKey rdf:type owl:Class ;
+                          rdfs:subClassOf :ErrorKey ;
+                          rdfs:label "Feuerlöschanlage Fehler Key"@de ,
+                                     "fire extinguisher error key"@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#FireExtinguisherSecurity
+:FireExtinguisherSecurity rdf:type owl:Class ;
+                          rdfs:subClassOf :SafetyControlSystem ;
+                          rdfs:label "Feuerlöschanlagesicherung"@de ,
+                                     "Fire Extinguisher Security"@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#FireExtinguishingSystem
+:FireExtinguishingSystem rdf:type owl:Class ;
+                         rdfs:subClassOf cco:CoolingSystem ;
+                         cco:definition_source "https://en.wikipedia.org/wiki/Fire_suppression_system"@en ;
+                         rdfs:label "Feuerlöschanlage"@de ,
+                                    "Fire Extinguishing System"@en ;
+                         iof-av:naturalLanguageDefinition "A Fire Extinguishing System is a safety component used to extinguish, control, or, in some cases, entirely prevent fires from spreading or occurring."@en ,
+                                                          "Feuerlöschanlage ist eine Sicherheitskomponente, die eingesetzt wird, um Brände zu löschen, zu kontrollieren oder in einigen Fällen die Ausbreitung oder Entstehung von Bränden ganz zu verhindern."@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#FloatSwitch
+:FloatSwitch rdf:type owl:Class ;
+             rdfs:subClassOf :Switch ;
+             cco:definition_source "https://en.wikipedia.org/wiki/Float_switch"@en ;
+             rdfs:label "Float Switch"@en ,
+                        "Schwimmerschalter"@de ;
+             iof-av:naturalLanguageDefinition "A Float switch is a fluid control artifact that is a type of level sensor, a device used to detect the liquid level within a tank."@en ,
+                                              "Ein Schwimmerschalter ist ein Flüssigkeitskontrollartefakt, bei dem es sich um eine Art Füllstandssensor handelt, das dazu dient, den Flüssigkeitsstand in einem Tank zu ermitteln."@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#FlowController
+:FlowController rdf:type owl:Class ;
+                rdfs:subClassOf cco:FluidControlArtifactComponent ;
+                rdfs:label "Durchflusswächter"@de ,
+                           "Flow Controller"@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#FluidContainer
+:FluidContainer rdf:type owl:Class ;
+                rdfs:subClassOf <http://www.ontologyrepository.com/CommonCoreOntologies#Container> ;
+                rdfs:label "Fluid Container"@en ,
+                           "Flüssigkeitsbehälter"@de ;
+                iof-av:naturalLanguageDefinition "A tank is a liquid control artefact designed for storing and preserving liquids."@en ,
+                                                 "Ein Tank ist ein Flüssigkeitskontrollartefakt, das für die Lagerung und Aufbewahrung von Flüssigkeiten ausgelegt ist."@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#FrequencyInverter
+:FrequencyInverter rdf:type owl:Class ;
+                   rdfs:subClassOf :Inverter ;
+                   rdfs:label "Frequency Inverter"@en ,
+                              "Frequenzumrichter"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#Fuse
+:Fuse rdf:type owl:Class ;
+      rdfs:subClassOf cco:ElectronicComponent ;
+      cco:definition_source "https://de.wikipedia.org/wiki/Sicherung"@de ;
+      rdfs:label "Fuse"@en ,
+                 "Sicherung"@de ;
+      iof-av:naturalLanguageDefinition "A fuse is an electronic component that serves as a protective circuit against overload."@en ,
+                                       "Eine Sicherung ist eine elektronische Komponente, die als Schutzschaltung gegen Überlast dient."@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#GeneralPlan
+:GeneralPlan rdf:type owl:Class ;
+             rdfs:subClassOf cco:PlanSpecification ;
+             rdfs:label "General Plan"@en ,
+                        "Gesamtplan"@de ;
+             skos:example "The machine's overall commissioning consists of the control system, the safety and all machine components."@en ;
+             iof-av:naturalLanguageDefinition "A plan that prescribes a series of intentional actions and usually consists of several subplans."@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#GrindingMachine
+:GrindingMachine rdf:type owl:Class ;
+                 rdfs:subClassOf :MachineTool ;
+                 rdfs:label "Grinding Machine"@en ,
+                            "Schleifmaschine"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#HandControlUnit
+:HandControlUnit rdf:type owl:Class ;
+                 rdfs:subClassOf cco:InstrumentDisplayPanel2 ;
+                 rdfs:label "Hand Control Unit"@en ,
+                            "Handbedientafel"@de ;
+                 iof-av:naturalLanguageDefinition "A hand control unit is a panel used to remotely control some functions of the machine, and it is not fixed in a specific place."@en ,
+                                                  "Handbedientafel ist ein Panel, mit dem einige Funktionen der Maschine ferngesteuert werden können und das nicht an einem bestimmten Ort angebracht ist."@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#HandCrank
+:HandCrank rdf:type owl:Class ;
+           rdfs:subClassOf cco:MachineElement ;
+           rdfs:label "Hand Crank"@en ,
+                      "Handkurbel"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#HeatExchanger
+:HeatExchanger rdf:type owl:Class ;
+               rdfs:subClassOf cco:CoolingSystem ;
+               rdfs:label "Heat Exchanger"@en ,
+                          "Wärmetauscher"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#HighPressureCoolantValve
+:HighPressureCoolantValve rdf:type owl:Class ;
+                          rdfs:subClassOf cco:Valve ;
+                          rdfs:label "High Pressure Coolant Valve"@en ,
+                                     "Hochdruck Kühlmittel Ventil"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#HydraulicEmbossingUnit
+:HydraulicEmbossingUnit rdf:type owl:Class ;
+                        rdfs:subClassOf cco:MachineElement ;
+                        rdfs:label "Hydraulic Embossing Unit"@en ,
+                                   "Hydraulische Prägeeinheit"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#HydraulicErrorKey
+:HydraulicErrorKey rdf:type owl:Class ;
+                   rdfs:subClassOf :ErrorKey ;
+                   rdfs:label "Hydraulik Fehler Key"@de ,
+                              "hydraulic error key"@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#IO-Link-Mastermodule
+:IO-Link-Mastermodule rdf:type owl:Class ;
+                      rdfs:subClassOf cco:IntercommunicationSystem ;
+                      cco:definition_source "https://new.siemens.com/de/de/produkte/automatisierung/industrielle-kommunikation/io-link.html?gclid=Cj0KCQiA15yNBhDTARIsAGnwe0VcLAJnxOI53Vt4yWNUksH2fJDxAs_IsUEkLlpok4WPQaSo9g4TS8QaAo_BEALw_wcB"@de ;
+                      rdfs:label "IO-Link-Mastermodule"@de ,
+                                 "IO-Link-Mastermodule"@en ;
+                      iof-av:naturalLanguageDefinition "A control system is designed to connect IO-Link devices (IO-Link Devices) to the automation system. These IO-Link master modules integrate fast and simple IO-Link communication with sensors and actuators into the established fieldbus systems."@en ,
+                                                       "Ein Kontrollsystem ist für die Anbindung von IO-Link-Geräten (IO-Link Devices) an das Automatisierungssystem konzipiert. Diese IO-Link-Master-Module integrieren die schnelle sowie einfache IO-Link-Kommunikation mit Sensoren und Aktoren in die etablierten Feldbussysteme."@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#IO_Link
+:IO_Link rdf:type owl:Class ;
+         rdfs:subClassOf cco:PropulsionControlSystem ;
+         rdfs:label "IO Link"@de ,
+                    "IO Link"@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#Ini
+:Ini rdf:type owl:Class ;
+     rdfs:subClassOf cco:ElectronicComponent ;
+     rdfs:label "Initiator"@de ,
+                "Initiator"@en ;
+     rdfs:seeAlso "Ini"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#Inverter
+:Inverter rdf:type owl:Class ;
+          rdfs:subClassOf cco:ElectronicComponent ;
+          rdfs:label "Inverter"@de ,
+                     "Inverter"@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#Lamp
+:Lamp rdf:type owl:Class ;
+      rdfs:subClassOf <http://www.ontologyrepository.com/CommonCoreOntologies#LightingSystem> ;
+      rdfs:label "Lamp"@en ,
+                 "Lampe"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#Lathe
+:Lathe rdf:type owl:Class ;
+       rdfs:subClassOf :MachineTool ;
+       rdfs:label "Drehmaschine"@de ,
+                  "Lathe Machine"@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#LiftPump
+:LiftPump rdf:type owl:Class ;
+          rdfs:subClassOf cco:Pump ;
+          rdfs:label "Hebepumpe"@de ,
+                     "Lift Pump"@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#Loading
+:Loading rdf:type owl:Class ;
+         rdfs:subClassOf :ObjectAggregateFunction ;
+         rdfs:label "Beladen"@de ,
+                    "Loading"@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#Logistic
+:Logistic rdf:type owl:Class ;
+          rdfs:subClassOf iof-core:ManufacturerRole .
+
+
+###  http://linkedfactory.org/vocab/roxana#LubricationPneumaticErrorKey
+:LubricationPneumaticErrorKey rdf:type owl:Class ;
+                              rdfs:subClassOf :ErrorKey ;
+                              rdfs:label "Zentralschmierung/Pneumatik Fehler Key"@de ,
+                                         "lubrication pneumatic error key"@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#MachineAssembly
+:MachineAssembly rdf:type owl:Class ;
+                 rdfs:subClassOf obo:BFO_0000027 ;
+                 rdfs:label "Machine Assembly"@en ,
+                            "Maschinen Baugruppe"@de ;
+                 skos:example "hydraulic unit on a machine"@en ,
+                              "one station on a rotary transfer machine"@en ;
+                 iof-av:explanatoryNote "The definition does not include the machine in its entirety. A machine or plant as a product is a Artifact. A machine assembly has a specific purpose in the product but is not a product itself."@en ;
+                 iof-av:naturalLanguageDefinition "An object aggregation that is a unit of a machine and consists of several machine components."@en .
+
+[ rdf:type owl:Axiom ;
+   owl:annotatedSource :MachineAssembly ;
+   owl:annotatedProperty iof-av:explanatoryNote ;
+   owl:annotatedTarget "The definition does not include the machine in its entirety. A machine or plant as a product is a Artifact. A machine assembly has a specific purpose in the product but is not a product itself."@en ;
+   rdfs:seeAlso :MachineTool
+ ] .
+
+
+###  http://linkedfactory.org/vocab/roxana#MachineLighting
+:MachineLighting rdf:type owl:Class ;
+                 rdfs:subClassOf <http://www.ontologyrepository.com/CommonCoreOntologies#LightingSystem> ;
+                 rdfs:label "Machine Lighting"@en ,
+                            "Maschinenbeleuchtung"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#MachineLightingSwitch
+:MachineLightingSwitch rdf:type owl:Class ;
+                       rdfs:subClassOf :Switch ;
+                       rdfs:label "Machine Lighting Switch"@en ,
+                                  "Maschinenbeleuchtung Schalter"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#MachineTool
+:MachineTool rdf:type owl:Class ;
+             rdfs:subClassOf iof-core:Assembly ;
+             rdfs:label "Machine Tool"@en ,
+                        "Werkzeugmaschine"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#MachiningCenter
+:MachiningCenter rdf:type owl:Class ;
+                 rdfs:subClassOf :MachineTool ;
+                 rdfs:label "Bearbeitungszentrum"@de ,
+                            "Machining Center"@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#MainSwitch
+:MainSwitch rdf:type owl:Class ;
+            rdfs:subClassOf :Switch ;
+            rdfs:label "Hauptschalter"@de ,
+                       "Main Switch"@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#MainValve
+:MainValve rdf:type owl:Class ;
+           rdfs:subClassOf cco:Valve ;
+           cco:definition_source "https://de.wikipedia.org/wiki/Ventil"@de ;
+           rdfs:label "Hauptventil"@de ,
+                      "Main Valve"@en ;
+           iof-av:naturalLanguageDefinition "A main valve is a valve used to shut off or control the flow of fluids (liquids or gases) in the entire system."@en ,
+                                            "Ein Hauptventil ist ein Ventil zur Absperrung oder Steuerung des Durchflusses von Fluiden (Flüssigkeiten oder Gasen) des gesamten Systems."@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#MaintenanceUnit
+:MaintenanceUnit rdf:type owl:Class ;
+                 rdfs:subClassOf cco:FluidControlArtifactComponent ;
+                 rdfs:label "Maintenance Unit"@en ,
+                            "Wartungseinheit"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#MeasurementSystem
+:MeasurementSystem rdf:type owl:Class ;
+                   rdfs:subClassOf iof-core:PieceOfEquipment ;
+                   rdfs:label "Measurement System"@en ,
+                              "Messsystem"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#MechanicalAssembler
+:MechanicalAssembler rdf:type owl:Class ;
+                     rdfs:subClassOf iof-core:ManufacturerRole .
+
+
+###  http://linkedfactory.org/vocab/roxana#MechanicalEngineer
+:MechanicalEngineer rdf:type owl:Class ;
+                    rdfs:subClassOf iof-core:ManufacturerRole .
+
+
+###  http://linkedfactory.org/vocab/roxana#MillingMachine
+:MillingMachine rdf:type owl:Class ;
+                rdfs:subClassOf :MachineTool ;
+                rdfs:label "Fräsmaschine"@de ,
+                           "Milling Machine"@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#NumericControl
+:NumericControl rdf:type owl:Class ;
+                rdfs:subClassOf cco:PropulsionControlSystem ;
+                rdfs:label "Numeric Control"@en ,
+                           "Numerische Steuerung"@de ;
+                iof-av:acronym "NC"@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#ObjectAggregateFunction
+:ObjectAggregateFunction rdf:type owl:Class ;
+                         rdfs:subClassOf obo:BFO_0000034 ;
+                         rdfs:label "Object Aggregate Function"@en ,
+                                    "Objektaggregats-Funktion"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#OilContainer
+:OilContainer rdf:type owl:Class ;
+              rdfs:subClassOf :FluidContainer ;
+              rdfs:label "Oil Container"@en ,
+                         "Ölbehälter"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#OilPump
+:OilPump rdf:type owl:Class ;
+         rdfs:subClassOf cco:Pump ;
+         rdfs:label "Oil Pump"@en ,
+                    "Ölpumpe"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#OperatingErrorKey
+:OperatingErrorKey rdf:type owl:Class ;
+                   rdfs:subClassOf :ErrorKey ;
+                   rdfs:label "Bedienfehler Fehler Key"@de ,
+                              "operating error key"@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#OperatingModeSwitch
+:OperatingModeSwitch rdf:type owl:Class ;
+                     rdfs:subClassOf :Switch ;
+                     rdfs:label "Betriebsartenschalter"@de ,
+                                "Operating Mode Switch"@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#OperatorGuidanceErrorKey
+:OperatorGuidanceErrorKey rdf:type owl:Class ;
+                          rdfs:subClassOf :ErrorKey ;
+                          rdfs:label "Bedienerführung Fehler Key"@de ,
+                                     "operator guidance error key"@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#OpticalDetector
+:OpticalDetector rdf:type owl:Class ;
+                 rdfs:subClassOf :Detector ;
+                 cco:definition_source "https://de.wikipedia.org/wiki/Photodetektor"@de ;
+                 rdfs:label "Optical Detector"@en ,
+                            "Optischer Detektor"@de ;
+                 iof-av:naturalLanguageDefinition "An Optical detector is an electronic component that converts light into an electrical signal using the photoelectric effect or shows an electrical resistance dependent on the incident radiation."@en ,
+                                                  "Ein optischer Detektor ist ein Detektor, der das Licht mit Hilfe des photoelektrischen Effekts in ein elektrisches Signal umwandelt oder einen von der einfallenden Strahlung abhängigen elektrischen Widerstand aufzeigt."@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#PNOZmultiBaseUnit
+:PNOZmultiBaseUnit rdf:type owl:Class ;
+                   rdfs:subClassOf :SafetyControlSystem ;
+                   cco:definition_source "https://www.pilz.com/de-DE/produkte/schaltgeraete/sicherheitsrelais-sicherheitsschaltgeraete"@de ;
+                   rdfs:label "PNOZmulti Base Unit"@en ,
+                              "PNOZmulti Basisgerät"@de ;
+                   iof-av:naturalLanguageDefinition "Die Sicherheitsrelais PNOZ ist eine elektronische Komponente, die Sicherheitsfunktionen wie Not-Halt, Schutztüren, Lichtschranken, Lichtgitter, Zweihand, Drehzahl und Stillstand überwacht."@de ,
+                                                    "The PNOZ safety relays are electronic components that monitor safety functions such as emergency stops, safety gates (Contactors), light barriers, light curtains, two hands, speed of rotation, and standstill (Deadlock)."@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#Pipeline
+:Pipeline rdf:type owl:Class ;
+          rdfs:subClassOf iof-core:PieceOfEquipment ;
+          rdfs:label "Pipeline"@de ,
+                     "Pipeline"@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#Plug
+:Plug rdf:type owl:Class ;
+      rdfs:subClassOf cco:ElectronicComponent ;
+      rdfs:label "Plug"@en ,
+                 "Stecker"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#PneumaticPressureSwitch
+:PneumaticPressureSwitch rdf:type owl:Class ;
+                         rdfs:subClassOf :PressureSwitch ;
+                         rdfs:label "Pneumatic Pressure Switch"@en ,
+                                    "Pneumatik Druckschalter"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#PneumaticPump
+:PneumaticPump rdf:type owl:Class ;
+               rdfs:subClassOf cco:Pump ;
+               rdfs:label "Pneumatic Pump"@en ,
+                          "Pneumatik Pumpe"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#PowerSupply
+:PowerSupply rdf:type owl:Class ;
+             rdfs:subClassOf cco:ElectronicComponent ;
+             rdfs:label "Elektronikversorgung"@de ,
+                        "Power Supply"@en ;
+             iof-av:naturalLanguageDefinition "A power supply is an electronic component that is a device that supplies electric power to an electrical load."@en ,
+                                              "Ein Elektronikversorgung ist eine elektronische Komponente, die eine elektrische Last mit Strom versorgt."@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#PowerSwitch
+:PowerSwitch rdf:type owl:Class ;
+             rdfs:subClassOf :Switch ;
+             rdfs:label "Motor Protection Switch"@en ,
+                        "Motorschutzschalter"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#Pressure
+:Pressure rdf:type owl:Class ;
+          rdfs:subClassOf iof-core:ValueExpression ;
+          rdfs:label "Druck"@de ,
+                     "Pressure"@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#PressureSwitch
+:PressureSwitch rdf:type owl:Class ;
+                rdfs:subClassOf :Switch ;
+                rdfs:label "Druckschalter"@de ,
+                           "Pressure Switch"@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#Processing
+:Processing rdf:type owl:Class ;
+            rdfs:subClassOf :ObjectAggregateFunction ;
+            rdfs:label "Bearbeitung"@de ,
+                       "Processing"@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#ProgrammCode
+:ProgrammCode rdf:type owl:Class ;
+              rdfs:subClassOf cco:InformationBearingArtifact ;
+              rdfs:label "Programm Code"@en ,
+                         "Programmcode"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#ProgrammableLogicController
+:ProgrammableLogicController rdf:type owl:Class ;
+                             rdfs:subClassOf cco:PropulsionControlSystem ;
+                             rdfs:label "Programmable Logic Controller"@en ,
+                                        "Speicherprogrammierbare Steuerung"@de ;
+                             iof-av:acronym "PLC"@en ,
+                                            "SPS"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#ProjectManager
+:ProjectManager rdf:type owl:Class ;
+                rdfs:subClassOf iof-core:ManufacturerRole .
+
+
+###  http://linkedfactory.org/vocab/roxana#Purchaser
+:Purchaser rdf:type owl:Class ;
+           rdfs:subClassOf iof-core:ManufacturerRole .
+
+
+###  http://linkedfactory.org/vocab/roxana#Repetition
+:Repetition rdf:type owl:Class ;
+            rdfs:subClassOf iof-core:ValueExpression ;
+            rdfs:label "Repetition"@en ,
+                       "Wiederholung"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#Researcher
+:Researcher rdf:type owl:Class ;
+            rdfs:subClassOf iof-core:ManufacturerRole .
+
+
+###  http://linkedfactory.org/vocab/roxana#ReturnPump
+:ReturnPump rdf:type owl:Class ;
+            rdfs:subClassOf cco:Pump ;
+            rdfs:label "Return Pump"@en ,
+                       "Rücklaufpumpe"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#RotaryTable
+:RotaryTable rdf:type owl:Class ;
+             rdfs:subClassOf cco:MachineElement ;
+             rdfs:label "Drehteller"@de ,
+                        "Rotary Table"@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#Rotating_Field
+:Rotating_Field rdf:type owl:Class ;
+                rdfs:subClassOf cco:Power .
+
+
+###  http://linkedfactory.org/vocab/roxana#Rotation
+:Rotation rdf:type owl:Class ;
+          rdfs:subClassOf iof-core:ValueExpression ;
+          rdfs:label "Rotations"@en ,
+                     "Umdrehung"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#RotationalSpeed
+:RotationalSpeed rdf:type owl:Class ;
+                 rdfs:subClassOf iof-core:ValueExpression ;
+                 rdfs:label "Drehzahl"@de ,
+                            "Rotational Speed"@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#SafetyControlGeneralErrorKey
+:SafetyControlGeneralErrorKey rdf:type owl:Class ;
+                              rdfs:subClassOf :ErrorKey ;
+                              rdfs:label "Sicherheitsüberwachung Allgemein Fehler Key"@de ,
+                                         "safety control general error key"@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#SafetyControlSystem
+:SafetyControlSystem rdf:type owl:Class ;
+                     rdfs:subClassOf cco:ControlSystem ;
+                     rdfs:label "Safety Control System"@en ,
+                                "Sicherheitskontrollsystem"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#SafetyControlSystemErrorKey
+:SafetyControlSystemErrorKey rdf:type owl:Class ;
+                             rdfs:subClassOf :ErrorKey ;
+                             rdfs:label "Sicherheitsüberwachung Sicherheitssystem Fehler Key"@de ,
+                                        "safety control system error key"@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#SafetyDoor
+:SafetyDoor rdf:type owl:Class ;
+            rdfs:subClassOf cco:MachineElement ;
+            rdfs:label "Safety Door"@en ,
+                       "Sicherheitstür"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#SafetyDoorIlluminatedButton
+:SafetyDoorIlluminatedButton rdf:type owl:Class ;
+                             rdfs:subClassOf :Button ;
+                             rdfs:label "Safety Door Illuminated Button"@en ,
+                                        "Sicherheitstür Leuchttaste"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#SafetySwitch
+:SafetySwitch rdf:type owl:Class ;
+              rdfs:subClassOf :Switch ;
+              rdfs:label "Safety Switch"@en ,
+                         "Sicherheitsschalter"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#SawingMachine
+:SawingMachine rdf:type owl:Class ;
+               rdfs:subClassOf :MachineTool ;
+               rdfs:label "Sawing Machine"@en ,
+                          "Sägemaschine"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#SealingAirValve
+:SealingAirValve rdf:type owl:Class ;
+                 rdfs:subClassOf cco:Valve ;
+                 cco:definition_source "https://www.vvc-valves.com/de/producten/rookgaskleppen/sperluchtkleppen-dsk-d"@de ;
+                 rdfs:label "Sealing Air Valve"@en ,
+                            "Sperrluftventil"@de ;
+                 iof-av:naturalLanguageDefinition "A sealing air valve is a valve that is used as a safety device in extreme operating conditions. It is used, for example, when pipelines have to be repaired, and the production process is to continue as usual. In this case, it ensures a 100% reliable seal."@en ,
+                                                  "Sperrluftventil ist ein Ventil, der als Sicherheitsvorrichtung bei extremen Betriebsbedingungen eingesetzt wird. Er wird beispielsweise eingesetzt, wenn Rohrleitungen repariert werden müssen und der Produktionsprozess wie gewohnt weiterlaufen soll. Er gewährleistet in diesem Fall eine 100%-ig sichere Abdichtung."@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#SolenoidValve
+:SolenoidValve rdf:type owl:Class ;
+               rdfs:subClassOf cco:Valve ;
+               rdfs:label "Magnetventil"@de ,
+                          "Solenoid Valve"@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#SpecialMachine
+:SpecialMachine rdf:type owl:Class ;
+                rdfs:subClassOf :MachineTool ;
+                rdfs:label "Sondermaschine"@de ,
+                           "Special Machine"@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#StasisArtifactDescription
+:StasisArtifactDescription rdf:type owl:Class ;
+                           rdfs:subClassOf iof-core:DescriptiveInformationContentEntity ;
+                           rdfs:label "Stasis Artifact Description"@en ,
+                                      "Zustandsbeschreibung Artifakt"@de ;
+                           skos:example "switch is turned on and flashing"@de ;
+                           iof-av:naturalLanguageDefinition "A Descriptive Information Content Entity that describes the state of an artifact."@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#StasisMachineErrorDescription
+:StasisMachineErrorDescription rdf:type owl:Class ;
+                               rdfs:subClassOf :StasisArtifactDescription ;
+                               rdfs:label "Stasis Machine Error Description"@en ,
+                                          "Zustandsbeschreibung Maschinenfehler"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#StasisOfMachine
+:StasisOfMachine rdf:type owl:Class ;
+                 rdfs:subClassOf iof-core:MaterialState ;
+                 rdfs:label "Maschinenzustand"@de ,
+                            "Stasis of Machine"@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#Station10ErrorKey
+:Station10ErrorKey rdf:type owl:Class ;
+                   rdfs:subClassOf :ErrorKey ;
+                   rdfs:label "Station 10 Fehler Key"@de ,
+                              "station 10 error key"@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#Station11ErrorKey
+:Station11ErrorKey rdf:type owl:Class ;
+                   rdfs:subClassOf :ErrorKey ;
+                   rdfs:label "Station 11 Fehler Key"@de ,
+                              "station 11 error key"@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#Station1ErrorKey
+:Station1ErrorKey rdf:type owl:Class ;
+                  rdfs:subClassOf :ErrorKey ;
+                  rdfs:label "Station 1 Fehler Key"@de ,
+                             "station 1 error key"@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#Station2ErrorKey
+:Station2ErrorKey rdf:type owl:Class ;
+                  rdfs:subClassOf :ErrorKey ;
+                  rdfs:label "Station 2 Fehler Key"@de ,
+                             "station 2 error key"@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#Station3ErrorKey
+:Station3ErrorKey rdf:type owl:Class ;
+                  rdfs:subClassOf :ErrorKey ;
+                  rdfs:label "Station 3 Fehler Key"@de ,
+                             "station 3 error key"@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#Station4ErrorKey
+:Station4ErrorKey rdf:type owl:Class ;
+                  rdfs:subClassOf :ErrorKey ;
+                  rdfs:label "Station 4 Fehler Key"@de ,
+                             "station 4 error key"@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#Station5ErrorKey
+:Station5ErrorKey rdf:type owl:Class ;
+                  rdfs:subClassOf :ErrorKey ;
+                  rdfs:label "Station 5 Fehler Key"@de ,
+                             "station 5 error key"@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#Station6ErrorKey
+:Station6ErrorKey rdf:type owl:Class ;
+                  rdfs:subClassOf :ErrorKey ;
+                  rdfs:label "Station 6 Fehler Key"@de ,
+                             "station 6 error key"@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#Station7ErrorKey
+:Station7ErrorKey rdf:type owl:Class ;
+                  rdfs:subClassOf :ErrorKey ;
+                  rdfs:label "Station 7 Fehler Key"@de ,
+                             "station 7 error key"@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#Station8ErrorKey
+:Station8ErrorKey rdf:type owl:Class ;
+                  rdfs:subClassOf :ErrorKey ;
+                  rdfs:label "Station 8 Fehler Key"@de ,
+                             "station 8 error key"@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#Station9ErrorKey
+:Station9ErrorKey rdf:type owl:Class ;
+                  rdfs:subClassOf :ErrorKey ;
+                  rdfs:label "Station 9 Fehler Key"@de ,
+                             "station 9 error key"@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#SubPlan
+:SubPlan rdf:type owl:Class ;
+         rdfs:subClassOf cco:PlanSpecification ;
+         rdfs:label "Sub Plan"@en ,
+                    "Teilplan"@de ;
+         skos:example "work packages in an overall project"@en ;
+         iof-av:explanatoryNote "In the case of commissioning a large plant, the list of all the steps required for this would be the general plan. The partial commissioning of a single component accordingly represents a subplan."@en ,
+                                "Particularly in the case of complex processes or projects, there is the need to split an overall (massive, complex) plan. Reasons for this are, for example, the delimitation of tasks and responsibilities or to get a better overview of costs and resources."@en ;
+         iof-av:naturalLanguageDefinition "A plan that prescribes some set of Intentional Acts and forms an overall plan with other sub-plans."@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#SurveillanceErrorKey
+:SurveillanceErrorKey rdf:type owl:Class ;
+                      rdfs:subClassOf :ErrorKey ;
+                      rdfs:label "surveillance error key"@en ,
+                                 "Überwachung Fehler Key"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#Switch
+:Switch rdf:type owl:Class ;
+        rdfs:subClassOf cco:ElectronicComponent ;
+        cco:definition_source "https://en.wikipedia.org/wiki/Switch"@en ;
+        rdfs:label "Schalter"@de ,
+                   "Switch"@en ;
+        iof-av:naturalLanguageDefinition "A switch is an electrical component that can disconnect or connect the conducting path in an electrical circuit, interrupting the electric current or diverting it from one conductor to another."@en ,
+                                         "Ein Schalter ist eine elektrische Komponente, das den leitenden Pfad in einem Stromkreis unterbrechen oder verbinden kann, indem es den elektrischen Strom unterbricht oder ihn von einem Leiter zu einem anderen umleitet."@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#TableErrorKey
+:TableErrorKey rdf:type owl:Class ;
+               rdfs:subClassOf :ErrorKey ;
+               rdfs:label "Tisch Fehler Key"@de ,
+                          "table error key"@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#TableSupport
+:TableSupport rdf:type owl:Class ;
+              rdfs:subClassOf cco:MachineElement ;
+              rdfs:label "Table Support"@en ,
+                         "Tischunterstützung"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#TechnicalDocumentor
+:TechnicalDocumentor rdf:type owl:Class ;
+                     rdfs:subClassOf iof-core:ManufacturerRole .
+
+
+###  http://linkedfactory.org/vocab/roxana#Temperature
+:Temperature rdf:type owl:Class ;
+             rdfs:subClassOf iof-core:ValueExpression ;
+             rdfs:label "Temperatur"@de ,
+                        "Temperature"@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#TemperatureController
+:TemperatureController rdf:type owl:Class ;
+                       rdfs:subClassOf :Controller ;
+                       rdfs:label "Temperature Controller"@en ,
+                                  "Temperaturregler"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#ThermalDetector
+:ThermalDetector rdf:type owl:Class ;
+                 rdfs:subClassOf :Detector ;
+                 cco:definition_source "https://en.wikipedia.org/wiki/Heat_detector"@de ;
+                 rdfs:label "Thermal Detector"@en ,
+                            "Thermischer Detektor"@de ;
+                 iof-av:naturalLanguageDefinition "A heat detector is a detector (fire detector) that recognises temperature exceedances of a heat-sensitive element due to the convective heat energy of a fire."@en ,
+                                                  "Ein Wärmemelder ist ein Detektor (Feuermelder) und erkennt Temperatur Überschreitungen eines wärmeempfindlichen Elements durch die konvektive Wärmeenergie eines Feuers."@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#Time
+:Time rdf:type owl:Class ;
+      rdfs:subClassOf iof-core:ValueExpression ;
+      rdfs:label "Time"@en ,
+                 "Zeit"@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#ToolLifeDisplay
+:ToolLifeDisplay rdf:type owl:Class ;
+                 rdfs:subClassOf cco:InstrumentDisplayPanel2 ;
+                 rdfs:label "Standzeitanzeige"@de ,
+                            "Tool Life Display"@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#Unloading
+:Unloading rdf:type owl:Class ;
+           rdfs:subClassOf :ObjectAggregateFunction ;
+           rdfs:label "Entladen"@de ,
+                      "Unloading"@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#UnloadingConveyerErrorKey
+:UnloadingConveyerErrorKey rdf:type owl:Class ;
+                           rdfs:subClassOf :ErrorKey ;
+                           rdfs:label "Entladeband Fehler Key"@de ,
+                                      "unloading conveyer error key"@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#UnloadingConveyor
+:UnloadingConveyor rdf:type owl:Class ;
+                   rdfs:subClassOf :Pipeline ;
+                   rdfs:label "Entladeband"@de ,
+                              "Unloading conveyer"@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#VacuumSystem
+:VacuumSystem rdf:type owl:Class ;
+              rdfs:subClassOf cco:FluidControlArtifact ;
+              cco:definition_source "https://en.wikipedia.org/wiki/Category:Vacuum_systems"@en ;
+              rdfs:label "Vacuum System"@en ,
+                         "Vakuum System"@de ;
+              iof-av:naturalLanguageDefinition "An artifact designed to perform a function by means of negative pressure."@en ,
+                                               "Ein Artefakt, das durch Unterdruck eine Funktion erfüllen soll."@de .
+
+
+###  http://linkedfactory.org/vocab/roxana#Ventilation
+:Ventilation rdf:type owl:Class ;
+             rdfs:subClassOf iof-core:PieceOfEquipment ;
+             rdfs:label "Belüftung"@de ,
+                        "Ventilation"@en .
+
+
+###  http://linkedfactory.org/vocab/roxana#Voltage_Value
+:Voltage_Value rdf:type owl:Class ;
+               rdfs:subClassOf cco:Power .
+
+
+###  http://linkedfactory.org/vocab/roxana#WarningOperatingMessageErrorKey
+:WarningOperatingMessageErrorKey rdf:type owl:Class ;
+                                 rdfs:subClassOf :ErrorKey ;
+                                 rdfs:label "Warnungen und Betriebsmeldungen Fehler Key"@de ,
+                                            "warning operating message error key"@en .
+
+
+###  http://purl.obolibrary.org/obo/BFO_0000027
+obo:BFO_0000027 rdf:type owl:Class .
+
+
+###  http://purl.obolibrary.org/obo/BFO_0000034
+obo:BFO_0000034 rdf:type owl:Class .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies#Container
+<http://www.ontologyrepository.com/CommonCoreOntologies#Container> rdf:type owl:Class ;
+                                                                   rdfs:subClassOf iof-core:PieceOfEquipment ;
+                                                                   rdfs:label "Behälter"@de ,
+                                                                              "Container"@en .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies#CoolantContainer
+<http://www.ontologyrepository.com/CommonCoreOntologies#CoolantContainer> rdf:type owl:Class ;
+                                                                          rdfs:subClassOf :FluidContainer ;
+                                                                          rdfs:label "Coolant Tank"@en ,
+                                                                                     "Kühlmittelbehälter"@de .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies#LightingSystem
+<http://www.ontologyrepository.com/CommonCoreOntologies#LightingSystem> rdf:type owl:Class ;
+                                                                        rdfs:subClassOf iof-core:PieceOfEquipment ;
+                                                                        rdfs:label "Beleuchtungssystem"@de ,
+                                                                                   "Lighting System"@en .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/ArtifactFunction
+cco:ArtifactFunction rdf:type owl:Class ;
+                     rdfs:subClassOf obo:BFO_0000034 ;
+                     cco:is_curated_in_ontology "http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ArtifactOntology"^^xsd:anyURI ;
+                     rdfs:label "Artefakt Funktion"@de ,
+                                "Artifact Function"@en ;
+                     iof-av:naturalLanguageDefinition "A Function that inheres in some Artifact in virtue of that Artifact being designed to be used in processes that require that Function to be realized."@en .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/CommunicationSystem
+cco:CommunicationSystem rdf:type owl:Class ;
+                        rdfs:subClassOf iof-core:PieceOfEquipment ;
+                        rdfs:label "Communication System"@en ,
+                                   "Kommunikationssystem"@de .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/ControlSystem
+cco:ControlSystem rdf:type owl:Class ;
+                  rdfs:subClassOf iof-core:PieceOfEquipment ;
+                  rdfs:label "Control System"@en ,
+                             "Kontrollsystem"@de ;
+                  iof-av:naturalLanguageDefinition "An artefact that is intended to manage, command, direct or regulate the behaviour of at least one other artefact."@en ,
+                                                   "Ein Artefakt, das dazu bestimmt ist, das Verhalten von mindestens einem anderen Artefakt zu verwalten, zu befehlen, zu lenken oder zu regulieren."@de .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/CoolingSystem
+cco:CoolingSystem rdf:type owl:Class ;
+                  rdfs:subClassOf cco:EnvironmentControlSystem ;
+                  rdfs:label "Cooling System"@en ,
+                             "Kühlsystem"@de .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/Database
+cco:Database rdf:type owl:Class ;
+             rdfs:subClassOf cco:InformationBearingArtifact ;
+             rdfs:label "Database"@en ,
+                        "Datenbank"@de .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/DocumentField
+cco:DocumentField rdf:type owl:Class ;
+                  rdfs:subClassOf cco:InformationBearingArtifact ;
+                  cco:is_curated_in_ontology "http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ArtifactOntology"^^xsd:anyURI ;
+                  rdfs:label "Document Field"@en ;
+                  iof-av:naturalLanguageDefinition "An Information Bearing Entity that is a part of some document into which bearers of prescribed information can be writted or selected."@en ,
+                                                   "Eine informationstragende Einheit, die Teil eines Dokuments ist, in das Träger von vorgeschriebenen Informationen geschrieben oder ausgewählt werden können."@de .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/ElectronicComponent
+cco:ElectronicComponent rdf:type owl:Class ;
+                        rdfs:subClassOf iof-core:PieceOfEquipment ;
+                        rdfs:label "Electronic Component"@en ,
+                                   "Elektronische Komponente"@de ;
+                        iof-av:naturalLanguageDefinition "An artefact consisting of a basic discrete device or physical unit in an electronic system that is used to influence electrons or their associated fields."@en ,
+                                                         "Ein Artefakt, das aus einem grundlegenden diskreten Gerät oder einer physikalischen Einheit in einem elektronischen System besteht, das zur Beeinflussung von Elektronen oder deren zugehörigen Feldern verwendet wird."@de .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/Engine
+cco:Engine rdf:type owl:Class ;
+           rdfs:subClassOf iof-core:PieceOfEquipment ;
+           cco:definition_source "https://en.wikipedia.org/wiki/Engine" ;
+           cco:is_curated_in_ontology "http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ArtifactOntology"^^xsd:anyURI ;
+           rdfs:label "Engine"@en ;
+           iof-av:naturalLanguageDefinition "An Engine converts one form of energy into mechanical energy."@en ,
+                                            "Ein Artefakt, das eine Form von Energie in mechanische Energie umwandelt."@de ;
+           iof-av:synonym "Motor"@en .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/EnvironmentControlSystem
+cco:EnvironmentControlSystem rdf:type owl:Class ;
+                             rdfs:subClassOf iof-core:PieceOfEquipment ;
+                             rdfs:label "Environment Control System"@en ,
+                                        "Umweltkontrollsystem"@de .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/FluidControlArtifact
+cco:FluidControlArtifact rdf:type owl:Class ;
+                         rdfs:subClassOf iof-core:PieceOfEquipment ;
+                         rdfs:label "Fluid Control Artifact"@en ,
+                                    "Flüssigkeitskontroll Artefakt"@de ;
+                         iof-av:naturalLanguageDefinition "An artefact that can manipulate the flow of a fluid (e.g. a liquid or a gas)."@en ,
+                                                          "Ein Artefakt, das den Fluss eines Fluids (z.B. einer Flüssigkeit oder eines Gases) manipulieren kann."@de .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/FluidControlArtifactComponent
+cco:FluidControlArtifactComponent rdf:type owl:Class ;
+                                  rdfs:subClassOf iof-core:PieceOfEquipment ;
+                                  rdfs:label "Fluid Control Artifact Component"@en ,
+                                             "Flüssigkeitskontroll Artefakt"@en .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/HydraulicMotor
+cco:HydraulicMotor rdf:type owl:Class ;
+                   rdfs:subClassOf cco:PhysicallyPoweredEngine ;
+                   cco:definition_source "https://en.wikipedia.org/wiki/Hydraulic_motor" ;
+                   cco:is_curated_in_ontology "http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ArtifactOntology"^^xsd:anyURI ;
+                   rdfs:label "Hydraulic Motor"@en ,
+                              "Hydraulikmotor"@de ;
+                   iof-av:naturalLanguageDefinition "A Physically Powered Engine that converts hydraulic pressure and flow into torque and angular displacement."@en ,
+                                                    "Ein physikalisch angetriebener Motor, der hydraulischen Druck und Durchfluss in Drehmoment und Winkelverschiebung umwandelt."@de .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/InformationBearingArtifact
+cco:InformationBearingArtifact rdf:type owl:Class ;
+                               rdfs:subClassOf iof-core:PieceOfEquipment ;
+                               rdfs:label "Information Bearing Artifact"@en ,
+                                          "Informationstragendes Artefakt"@de .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/InstrumentDisplayPanel2
+cco:InstrumentDisplayPanel2 rdf:type owl:Class ;
+                            rdfs:subClassOf cco:InformationBearingArtifact ;
+                            rdfs:label "Instrument Display Panel"@en ,
+                                       "Instrumentenanzeigetafel"@de .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/IntercommunicationSystem
+cco:IntercommunicationSystem rdf:type owl:Class ;
+                             rdfs:subClassOf cco:CommunicationSystem ;
+                             rdfs:label "Intercommunication System"@en ,
+                                        "Interkommunikationssystem"@de .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/LubricationSystem
+cco:LubricationSystem rdf:type owl:Class ;
+                      rdfs:subClassOf iof-core:PieceOfEquipment ;
+                      rdfs:label "Lubrication System"@en ,
+                                 "Schmiersystem"@de .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/MachineElement
+cco:MachineElement rdf:type owl:Class ;
+                   rdfs:subClassOf :MachineAssembly ;
+                   rdfs:label "Machine Element Unit"@en ,
+                              "Maschinenelementen-Einheit"@de .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/MeasurementUnit
+cco:MeasurementUnit rdf:type owl:Class ;
+                    rdfs:subClassOf iof-core:DescriptiveInformationContentEntity ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty cco:is_measurement_unit_of ;
+                                      owl:someValuesFrom iof-core:ValueExpression
+                                    ] .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/ObservationArtifactFunction
+cco:ObservationArtifactFunction rdf:type owl:Class ;
+                                rdfs:subClassOf cco:ArtifactFunction .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/PhysicallyPoweredEngine
+cco:PhysicallyPoweredEngine rdf:type owl:Class ;
+                            rdfs:subClassOf cco:Engine ;
+                            cco:is_curated_in_ontology "http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ArtifactOntology"^^xsd:anyURI ;
+                            rdfs:label "Physically Powered Engine"@en ;
+                            iof-av:naturalLanguageDefinition "Es handelt sich um einen Motor, der potenzielle oder kinetische Energie in mechanische Energie umwandelt."@de ,
+                                                             "It is an engine that is designed to convert potential or kinetic energy into mechanical energy."@en ;
+                            iof-av:synonym "Physical Engine"@en .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/PlanSpecification
+cco:PlanSpecification rdf:type owl:Class ;
+                      rdfs:subClassOf iof-core:DirectiveInformationContentEntity ;
+                      cco:definition_source "http://en.wikipedia.org/wiki/Plan" ;
+                      cco:is_curated_in_ontology "http://www.ontologyrepository.com/CommonCoreOntologies/Mid/AgentOntology"^^xsd:anyURI ;
+                      rdfs:label "Plan"@de ,
+                                 "Plan"@en ;
+                      iof-av:explanatoryNote "The aggregation of multiple action prescriptions forms a plan."@en ;
+                      iof-av:naturalLanguageDefinition "A Directive Information Content Entity that prescribes some set of intended Intentional Acts through which some Agent expects to achieve some Objective."@en .
+
+[ rdf:type owl:Axiom ;
+   owl:annotatedSource cco:PlanSpecification ;
+   owl:annotatedProperty iof-av:explanatoryNote ;
+   owl:annotatedTarget "The aggregation of multiple action prescriptions forms a plan."@en ;
+   rdfs:seeAlso :ActPrescription
+ ] .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/PortionOfCoolant
+cco:PortionOfCoolant rdf:type owl:Class ;
+                     rdfs:subClassOf cco:PortionOfMaterial ;
+                     cco:is_curated_in_ontology "http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ArtifactOntology"^^xsd:anyURI ;
+                     rdfs:label "Portion of Coolant"@en ;
+                     iof-av:naturalLanguageDefinition "A Portion of Material that is designed to be used in a thermal control system to reduce or maintain the temperature of an object to or at a specified level."@en .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/PortionOfMaterial
+cco:PortionOfMaterial rdf:type owl:Class ;
+                      rdfs:subClassOf cco:PortionOfProcessedMaterial ;
+                      cco:is_curated_in_ontology "http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ArtifactOntology"^^xsd:anyURI ;
+                      rdfs:label "Portion of Material"@en ;
+                      iof-av:naturalLanguageDefinition "A Portion of Processed Material that was produced to be used as the input for another Act of Artifact Processing."@en .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/PortionOfProcessedMaterial
+cco:PortionOfProcessedMaterial rdf:type owl:Class ;
+                               rdfs:subClassOf obo:BFO_0000030 ;
+                               cco:is_curated_in_ontology "http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ArtifactOntology"^^xsd:anyURI ;
+                               rdfs:label "Portion of Processed Material"@en ;
+                               iof-av:naturalLanguageDefinition "An Artifact that is the output of an Act of Artifact Processing."@en .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/Power
+cco:Power rdf:type owl:Class ;
+          rdfs:subClassOf iof-core:ProcessCharacteristic .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/PropulsionControlSystem
+cco:PropulsionControlSystem rdf:type owl:Class ;
+                            rdfs:subClassOf cco:ControlSystem ;
+                            rdfs:label "Antriebssteuerungssystem"@de ,
+                                       "Propulsion Control System"@en .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/Pump
+cco:Pump rdf:type owl:Class ;
+         rdfs:subClassOf cco:FluidControlArtifact ;
+         rdfs:label "Pump"@en ,
+                    "Pumpe"@de ;
+         iof-av:naturalLanguageDefinition "A fluid control artefact sets a portion of the fluid in motion to transport it within a system by mechanical action."@en ,
+                                          "Ein Flüssigkeitskontroll Artefakt, das dazu dient, einen Teil des Fluids in Bewegung zu versetzen, um es durch mechanische Einwirkung innerhalb eines Systems zu transportieren."@de .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/Sensor
+cco:Sensor rdf:type owl:Class ;
+           rdfs:subClassOf cco:Transducer ;
+           rdfs:label "Sensor"@de ,
+                      "Sensor"@en .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/Transducer
+cco:Transducer rdf:type owl:Class ;
+               rdfs:subClassOf iof-core:PieceOfEquipment ;
+               rdfs:label "Messwertwandler"@de ,
+                          "Transducer"@en .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/Valve
+cco:Valve rdf:type owl:Class ;
+          rdfs:subClassOf cco:FluidControlArtifact ;
+          rdfs:label "Valve"@en ,
+                     "Ventil"@de ;
+          iof-av:naturalLanguageDefinition "A fluid control artefact used to regulate, direct or control the flow of a fluid by opening, closing, or partially blocking a passage."@en ,
+                                           "Ein Flüssigkeitskontrollartefakt, das dazu dient, den Fluss eines Fluids zu regulieren, zu lenken oder zu kontrollieren, indem es einen Durchgang öffnet, schließt oder teilweise blockiert."@de .
+
+
+###  https://spec.industrialontologies.org/ontology/core/Core/Assembly
+iof-core:Assembly rdf:type owl:Class .
+
+
+###  https://spec.industrialontologies.org/ontology/core/Core/AssemblyProcess
+iof-core:AssemblyProcess rdf:type owl:Class .
+
+
+###  https://spec.industrialontologies.org/ontology/core/Core/BuyingBusinessProcess
+iof-core:BuyingBusinessProcess rdf:type owl:Class .
+
+
+###  https://spec.industrialontologies.org/ontology/core/Core/ComputingProcess
+iof-core:ComputingProcess rdf:type owl:Class .
+
+
+###  https://spec.industrialontologies.org/ontology/core/Core/DescriptiveInformationContentEntity
+iof-core:DescriptiveInformationContentEntity rdf:type owl:Class .
+
+
+###  https://spec.industrialontologies.org/ontology/core/Core/DirectiveInformationContentEntity
+iof-core:DirectiveInformationContentEntity rdf:type owl:Class .
+
+
+###  https://spec.industrialontologies.org/ontology/core/Core/Identifier
+iof-core:Identifier rdf:type owl:Class .
+
+
+###  https://spec.industrialontologies.org/ontology/core/Core/ManufacturerRole
+iof-core:ManufacturerRole rdf:type owl:Class .
+
+
+###  https://spec.industrialontologies.org/ontology/core/Core/ManufacturingProcess
+iof-core:ManufacturingProcess rdf:type owl:Class .
+
+
+###  https://spec.industrialontologies.org/ontology/core/Core/MaterialState
+iof-core:MaterialState rdf:type owl:Class .
+
+
+###  https://spec.industrialontologies.org/ontology/core/Core/PieceOfEquipment
+iof-core:PieceOfEquipment rdf:type owl:Class .
+
+
+###  https://spec.industrialontologies.org/ontology/core/Core/ProcessCharacteristic
+iof-core:ProcessCharacteristic rdf:type owl:Class .
+
+
+###  https://spec.industrialontologies.org/ontology/core/Core/ValueExpression
+iof-core:ValueExpression rdf:type owl:Class ;
+                         rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                           owl:onProperty cco:uses_measurement_unit ;
+                                           owl:someValuesFrom cco:MeasurementUnit
+                                         ] .
+
+
+[ owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
+] .
+
+[ owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger
+ ] .
+
+[ owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger
+ ] .
+
+[ owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
+ ] .
+
+[ owl:cardinality "1"^^xsd:nonNegativeInteger
+ ] .
+
+[ owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger
+ ] .
+
+[ owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger
+ ] .
+
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
