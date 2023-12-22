@@ -39,7 +39,7 @@ ROXANA 2.0 adapts the structures of [IOF version 1](https://github.com/iofoundry
 
 ## Releases 📧
 - ROXANA 1.0 Initial Version of 12/2022 👉 based on BFO and the above mentioned CCO
-- ROXANA 2.0 of 08/2023 👉 adapted to IOF
+- ROXANA 2.0 of 12/2023 👉 adapted to IOF
 
 ## Contributing and developing 📝
 Hints and suggestions are always welcome. The ontology was part of a research and development project. It was tested and evaluated for the commissioning of special production machines for three different small and medium sized companies. 
